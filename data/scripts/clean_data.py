@@ -26,3 +26,15 @@ def load_json_records(styles_dir: Path) -> list[dict]:
             continue
 
     return records
+
+def filter_valid_records(
+    json_records: list[dict],
+    valid_ids: set[int]
+) -> list[dict]:
+    """Keep only JSON records whose product ID exists in styles.csv."""
+    
+    return [
+        record
+        for record in json_records
+        if record.get("data", {}).get("id") in valid_ids
+    ]
