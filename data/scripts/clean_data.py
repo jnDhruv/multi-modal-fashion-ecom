@@ -233,6 +233,17 @@ def clean_description(
     
     return text if text else None
 
+def parse_year(value):
+    """Convert a valid year value to int, otherwise return None."""
+    
+    if value is None:
+        return None
+    
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
 # ------------------
 # 4. Row builder
 # ------------------
@@ -298,7 +309,7 @@ def build_row(record: dict) -> dict:
         "usage": clean_text(
             data.get("usage")
         ),
-        "year": data.get("year"),
+        "year": parse_year(data.get("year")),
         "price": data.get("price"),
         "discounted_price": data.get("discountedPrice"),
         "description": clean_description(
