@@ -244,6 +244,25 @@ def parse_year(value):
     except (TypeError, ValueError):
         return None
 
+def extract_image_url(style_images: dict) -> str | None:
+    """Extract the preferred product image URL from styleImages."""
+
+    if not isinstance(style_images, dict):
+        return None
+
+    preferred_keys = ["default", "front", "left", "top"]
+
+    for key in preferred_keys:
+        image_data = style_images.get(key)
+
+        if isinstance(image_data, dict):
+            image_url = image_data.get("imageURL")
+
+            if isinstance(image_url, str) and image_url.strip():
+                return image_url
+
+    return None
+
 # ------------------
 # 4. Row builder
 # ------------------
@@ -268,17 +287,9 @@ def build_row(record: dict) -> dict:
     )
 
     # Default product image
-    style_images = data.get("styleImages", {})
-
-    if isinstance(style_images, dict):
-        default_image = style_images.get("default", {})
-    else:
-        default_image = {}
-
-    if isinstance(default_image, dict):
-        image_url = default_image.get("imageURL")
-    else:
-        image_url = None
+    image_url = extract_image_url(
+        data.get("styleImages", {})
+    )
 
     row = {
         "id": data.get("id"),
