@@ -190,6 +190,26 @@ def truncate_text(
     
     return text[:cutoff].strip()
 
+def clean_text(text: str | None) -> str | None:
+    """
+    Clean a general text field without truncating it.
+    
+    Order:
+        encoding fix
+        -> HTML stripping
+        -> whitespace normalization
+    """
+
+    if text is None:
+        return None
+
+    if not isinstance(text, str):
+        text = str(text)
+
+    text = fix_encoding(text)
+    text = strip_html(text)
+
+    return text if text else None
 
 def clean_description(
     raw: str | None
@@ -212,3 +232,89 @@ def clean_description(
     text = truncate_text(text)
     
     return text if text else None
+
+# ------------------
+# 4. Row builder
+# ------------------
+
+def build_row(record: dict) -> dict:
+    """
+    Convert one raw JSON record into one canonical product row.
+    """
+
+    data = record.get("data", {})
+
+    # Article attributes
+    attrs = data.get("articleAttributes", {})
+    if not isinstance(attrs, dict):
+        attrs = {}
+
+    # Product descriptors
+    descriptors = data.get("productDescriptors", {})
+    raw_description = unwrap_descriptor(
+        descriptors,
+        "description"
+    )
+
+    # Default product image
+    style_images = data.get("styleImages", {})
+
+    if isinstance(style_images, dict):
+        default_image = style_images.get("default", {})
+    else:
+        default_image = {}
+
+    if isinstance(default_image, dict):
+        image_url = default_image.get("imageURL")
+    else:
+        image_url = None
+
+    row = {
+        "id": data.get("id"),
+        "product_display_name": clean_text(
+            data.get("productDisplayName")
+        ),
+        "brand_name": clean_text(
+            data.get("brandName")
+        ),
+        "gender": extract_type_name(
+            data.get("gender")
+        ),
+        "master_category": extract_type_name(
+            data.get("masterCategory")
+        ),
+        "sub_category": extract_type_name(
+            data.get("subCategory")
+        ),
+        "article_type": extract_type_name(
+            data.get("articleType")
+        ),
+        "base_colour": clean_text(
+            data.get("baseColour")
+        ),
+        "season": clean_text(
+            data.get("season")
+        ),
+        "usage": clean_text(
+            data.get("usage")
+        ),
+        "year": data.get("year"),
+        "price": data.get("price"),
+        "discounted_price": data.get("discountedPrice"),
+        "description": clean_description(
+            raw_description
+        ),
+        "image_url": image_url,
+    }
+
+    # Selected article attributes
+    for schema_field, json_key in OPTIONAL_ATTRIBUTES.items():
+
+        value = attrs.get(json_key)
+
+        if is_missing_attribute(value):
+            row[schema_field] = None
+        else:
+            row[schema_field] = str(value).strip()
+
+    return row
