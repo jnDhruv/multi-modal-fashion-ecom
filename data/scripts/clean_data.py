@@ -330,9 +330,9 @@ def build_row(record: dict) -> dict:
 
     return row
 
-# ---------------------------------------------------------------------------
+# ------------------
 # 5. Search text
-# ---------------------------------------------------------------------------
+# ------------------
 
 def build_search_text(row: dict) -> str:
     """
@@ -364,3 +364,43 @@ def build_search_text(row: dict) -> str:
     ]
 
     return " ".join(parts)
+
+# ------------------
+# 6. Sanity checks
+# ------------------
+
+EXPECTED_ROW_COUNT = 44_424
+
+
+def run_sanity_checks(df: pd.DataFrame) -> None:
+    """Validate the canonical product dataframe before saving."""
+
+    assert len(df) == EXPECTED_ROW_COUNT, (
+        f"Expected {EXPECTED_ROW_COUNT} rows, got {len(df)}"
+    )
+
+    assert df["id"].notna().all(), (
+        "Null product IDs found"
+    )
+
+    assert df["id"].is_unique, (
+        "Duplicate product IDs found"
+    )
+
+    assert df["image_url"].notna().all(), (
+        "Rows missing image_url"
+    )
+
+    assert df["image_url"].str.strip().ne("").all(), (
+        "Empty image_url found"
+    )
+
+    assert df["search_text"].notna().all(), (
+        "Rows missing search_text"
+    )
+
+    assert df["search_text"].str.strip().ne("").all(), (
+        "Empty search_text found"
+    )
+
+    print("All sanity checks passed.")
