@@ -329,3 +329,38 @@ def build_row(record: dict) -> dict:
             row[schema_field] = str(value).strip()
 
     return row
+
+# ---------------------------------------------------------------------------
+# 5. Search text
+# ---------------------------------------------------------------------------
+
+def build_search_text(row: dict) -> str:
+    """
+    Build the textual representation used for lexical retrieval.
+    """
+
+    parts = [
+        row.get("product_display_name"),
+        row.get("brand_name"),
+        row.get("master_category"),
+        row.get("sub_category"),
+        row.get("article_type"),
+        row.get("base_colour"),
+        row.get("usage"),
+    ]
+
+    # Add promoted article attributes when populated
+    for schema_field in OPTIONAL_ATTRIBUTES:
+        parts.append(row.get(schema_field))
+
+    # Add cleaned description
+    parts.append(row.get("description"))
+
+    # Remove None / empty values
+    parts = [
+        str(value).strip()
+        for value in parts
+        if value is not None and str(value).strip()
+    ]
+
+    return " ".join(parts)
