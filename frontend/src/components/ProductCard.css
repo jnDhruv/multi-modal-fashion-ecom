@@ -1,0 +1,193 @@
+/* ─── Product Card ───────────────────────────────────────────── */
+
+.product-card {
+  background: var(--gradient-card);
+  border: 1px solid rgba(10, 10, 10, 0.08);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+  cursor: default;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(10, 10, 10, 0.16);
+  box-shadow: 0 20px 48px rgba(10, 10, 10, 0.10), 0 0 0 1px rgba(10, 10, 10, 0.04);
+}
+
+/* ─── Image Section ─────────────────────────────────────────── */
+
+.product-card__image-wrap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--color-gray-900);
+}
+
+.product-card__image-skeleton {
+  position: absolute;
+  inset: 0;
+}
+
+.product-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.product-card__image--loaded {
+  opacity: 1;
+}
+
+.product-card:hover .product-card__image--loaded {
+  transform: scale(1.04);
+}
+
+/* ─── Image Overlay ──────────────────────────────────────────── */
+
+.product-card__image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(10, 10, 10, 0.35) 100%
+  );
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.product-card:hover .product-card__image-overlay {
+  opacity: 1;
+}
+
+/* ─── Category Badge ─────────────────────────────────────────── */
+
+.product-card__category-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--badge-color, #0a0a0a);
+  color: var(--color-on-ink);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(4px);
+}
+
+/* ─── Score Badge ────────────────────────────────────────────── */
+
+.product-card__score-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  color: var(--color-white);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(10, 10, 10, 0.14);
+}
+
+/* ─── Info Section ───────────────────────────────────────────── */
+
+.product-card__info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+/* ─── Title ─────────────────────────────────────────────────── */
+
+.product-card__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-white);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ─── Tags ───────────────────────────────────────────────────── */
+
+.product-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.product-card__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(10, 10, 10, 0.04);
+  border: 1px solid rgba(10, 10, 10, 0.08);
+  border-radius: var(--radius-full);
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-gray-400);
+  white-space: nowrap;
+}
+
+.product-card__tag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent-3);
+  flex-shrink: 0;
+}
+
+.product-card__tag--gender {
+  background: rgba(10, 10, 10, 0.05);
+  border-color: rgba(10, 10, 10, 0.16);
+  color: var(--color-accent-3);
+}
+
+/* ─── Style ─────────────────────────────────────────────────── */
+
+.product-card__style {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.product-card__style-label {
+  font-size: 11px;
+  color: var(--color-gray-600);
+  font-weight: 500;
+}
+
+.product-card__style-value {
+  font-size: 11px;
+  color: var(--color-gray-300);
+  font-weight: 600;
+}
+
+/* ─── Price ──────────────────────────────────────────────────── */
+
+.product-card__price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.product-card__price-amount {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-white);
+  letter-spacing: -0.5px;
+}

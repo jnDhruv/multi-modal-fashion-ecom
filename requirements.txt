@@ -2,7 +2,7 @@ pandas
 beautifulsoup4
 ftfy
 pyarrow
-qdrant-client
-transformers
+open-clip-torch
 torch
+qdrant-client
 pillow
