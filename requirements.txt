@@ -6,3 +6,5 @@ open-clip-torch
 torch
 qdrant-client
 pillow
+dotenv
+fastembed
