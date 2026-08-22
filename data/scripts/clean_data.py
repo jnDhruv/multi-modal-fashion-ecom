@@ -37,6 +37,7 @@ OPTIONAL_ATTRIBUTES = {
 
 DESCRIPTION_MAX_CHARS = 1500
 
+KNOWN_MISSING_IMAGE_IDS = {12347, 39425, 39410, 39403, 39401}
 
 # ------------------
 # 1. Load
@@ -380,7 +381,7 @@ def build_search_text(row: dict) -> str:
 # 6. Sanity checks
 # ------------------
 
-EXPECTED_ROW_COUNT = 44_424
+EXPECTED_ROW_COUNT = 44_419
 
 
 def run_sanity_checks(df: pd.DataFrame) -> None:
