@@ -46,7 +46,6 @@ User Input (image and/or text)
 
 **Design principle:** every stage only ever passes a `product_id` forward. Full product records (image, price, metadata) are looked up once, right before they're needed.
 
----
 
 ## Intelligence System
 
