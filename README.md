@@ -1,4 +1,5 @@
-!image.png
+<img width="1341" height="511" alt="image" src="https://github.com/user-attachments/assets/d1fff372-e5df-499c-a8bc-b6892f6307ba" />
+
 
 Attirely is a multimodal fashion search with AI-generated style notes where user can upload an image or describe what they want and it will retrieve visually and semantically similar products, each with a personalized explanation of why it matches.
 
