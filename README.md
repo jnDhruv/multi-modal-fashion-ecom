@@ -11,8 +11,6 @@ Attirely is a multimodal fashion search with AI-generated style notes where user
 - **Filterable results** — price, size, and category constraints applied as hard rules, never overridden by similarity.
 - **Precision re-ranking** — a cross-encoder step available for cases where broad retrieval alone isn't precise enough.
 
----
-
 ## Architecture
 
 ```
