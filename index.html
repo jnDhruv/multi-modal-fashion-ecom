@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" class="x-default-marker theme light classic">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATTIRELY</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Preconnect and prefetch for performance -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Perandory&family=Arimo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero scroll-reveal delay-1">
+        <div class="hero-content">
+            <h1 class="brand-name">
+                <span class="letter">A</span>
+                <span class="letter">T</span>
+                <span class="letter t-color">T</span>
+                <span class="letter">I</span>
+                <span class="letter">R</span>
+                <span class="letter">E</span>
+                <span class="letter">L</span>
+                <span class="letter y-color">Y</span>
+            </h1>
+            <div class="section-labels scroll-reveal delay-2">
+                <div class="section-label find-label hover-lift">FIND</div>
+                <div class="section-label your-label hover-lift">YOUR</div>
+                <div class="section-label style-label hover-lift">STYLE</div>
+            </div>
+            <div class="hero-buttons scroll-reveal delay-3">
+                <a href="#your-section" class="btn-primary hover-lift">DIVE IN</a>
+            </div>
+        </div>
+        <!-- Background image will be set via CSS -->
+    </section>
+    
+    <!-- Find Section -->
+    <section class="section find-section scroll-reveal delay-3">
+        <div class="cards-container">
+            <div class="card left-card hover-lift scroll-reveal delay-4">
+                <img src="image1.png" alt="Image 1">
+                <div class="text-overlay bottom">YOU WANT IT ?</div>
+            </div>
+            <div class="card right-card hover-lift scroll-reveal delay-5">
+                <img src="image2.png" alt="Image 2">
+                <div class="text-overlay top">YOU GOT IT !</div>
+            </div>
+        </div>
+    </section>
+    
+<!-- Your Section -->
+<section class="section your-section" id="your-section">
+
+    <div class="image-container">
+        <img src="image3.png" alt="Your Style Image 1" class="merge-left">
+        <img src="image4.png" alt="Your Style Image 2" class="merge-right">
+    </div>
+
+    <div class="section-text">
+        DEFINE YOUR STYLE
+    </div>
+
+    <div class="search-container">
+        <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="Search styles..."
+            autocomplete="off"
+        >
+    </div>
+
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const searchInput = document.getElementById("searchInput");
+
+    searchInput.addEventListener("keydown", function (event) {
+
+        if (event.key === "Enter") {
+
+            const query = searchInput.value.trim();
+
+            if (query.length > 0) {
+
+                // Send the typed text to prod.html
+                window.location.href =
+                    "prod.html?search=" + encodeURIComponent(query);
+
+            }
+
+        }
+
+    });
+
+});
+</script>
+<!-- Style Section -->
+<section class="section style-section">
+    <img src="image5.png" alt="Style Image" class="style-image">
+</section>
+
+<!-- Page 4 Section -->
+<section class="section page4">
+ <img src="image6.png" alt="Page 4 Image">
+</section>
+
+    <!-- Page 5 Section -->
+    <!-- <section class="section page5 scroll-reveal delay-2">
+        <div class="contact-container scroll-reveal delay-3"> -->
+            <!-- <div class="contact-info scroll-reveal delay-4">
+                <h2>Contact Us</h2>
+                <p><strong>Address:</strong> 123 Fashion Avenue, New York, NY 10001</p>
+                <p><strong>Phone:</strong> +1 (212) 555-0198</p>
+                <p><strong>Email:</strong> info@attirely.com</p>
+                <p><strong>Hours:</strong> Mon-Fri: 9AM - 6PM, Sat: 10AM - 4PM</p>
+                <div class="social-links scroll-reveal delay-5">
+                    <a href="#" class="social-link hover-lift">Facebook</a>
+                    <a href="#" class="social-link hover-lift">Instagram</a>
+                    <a href="#" class="social-link hover-lift">Twitter</a>
+                    <a href="#" class="social-link hover-lift">LinkedIn</a>
+                </div>
+            </div> -->
+        <!-- </div>
+    </section> -->
+    <script src="script.js"></script>
+</body>
+</html>
+ 

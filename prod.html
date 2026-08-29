@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOG-IN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito+Sans:wght@300;400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      background: #fff;
+      color: #111;
+      line-height: 1.5;
+    }
+
+    /* NAVBAR */
+    nav {
+      background: #f5f1f1;
+      height: 56px;
+      display: flex;
+      align-items: center;
+    }
+    .nav-inner {
+      max-width: 1080px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      color: #111;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #111;
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      letter-spacing: 1px;
+    }
+
+    /* RESULTS HEADER */
+    .results-header {
+      max-width: 1080px;
+      margin: 64px auto 0;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .results-text h1 {
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 300;
+      font-size: 26px;
+      letter-spacing: 0.3px;
+    }
+    .results-text h1 span { color: #c0392b; }
+    .results-text p {
+      margin-top: 6px;
+      font-size: 16px;
+      color: #999;
+      letter-spacing: 0.4px;
+    }
+    .filter-btn {
+      background: #efefef;
+      border: none;
+      border-radius: 50px;
+      width: 210px;
+      height: 50px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      color: #333;
+      transition: background 200ms;
+    }
+    .filter-btn:hover { background: #e5e5e5; }
+
+    .divider {
+      max-width: 1080px;
+      margin: 32px auto 0;
+      padding: 0 24px;
+    }
+    .divider hr { border: none; border-top: 1px solid #e8e8e8; }
+
+    /* TOP 3 GRID */
+    .product-grid {
+      max-width: 1080px;
+      margin: 72px auto 0;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .product-card .img-wrap {
+      overflow: hidden;
+      border-radius: 6px;
+      transition: transform 420ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  box-shadow 420ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      z-index: 1;
+    }
+    .product-card:hover .img-wrap {
+      transform: translateY(-10px) scale(1.04);
+      box-shadow: 0 28px 56px rgba(0,0,0,0.16), 0 8px 20px rgba(0,0,0,0.09);
+      z-index: 10;
+    }
+    .product-card .img-wrap img {
+      width: 100%;
+      height: 335px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* HOVER OVERLAY PANEL */
+    .product-card .hover-panel {
+      position: absolute;
+      top: calc(335px - 10px);
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-radius: 0 0 10px 10px;
+      padding: 16px 14px 18px;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 350ms ease 60ms, transform 350ms ease 60ms;
+      pointer-events: none;
+      z-index: 9;
+      box-shadow: 0 28px 56px rgba(0,0,0,0.13), 0 8px 20px rgba(0,0,0,0.07);
+    }
+    .product-card:hover .hover-panel {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .hover-panel .hp-brand {
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 4px;
+    }
+    .hover-panel .hp-name {
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: #111;
+      margin-bottom: 8px;
+    }
+    .hover-panel .hp-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: #777;
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+    .hover-panel .hp-pricing {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .hover-panel .hp-price {
+      font-size: 16px;
+      font-weight: 500;
+      color: #111;
+    }
+    .hover-panel .hp-orig {
+      font-size: 13px;
+      font-weight: 300;
+      color: #bbb;
+      text-decoration: line-through;
+    }
+    .hover-panel .hp-off {
+      font-size: 12px;
+      font-weight: 500;
+      color: #c0392b;
+    }
+    .hover-panel .hp-buy {
+      width: 100%;
+      height: 40px;
+      border: none;
+      border-radius: 50px;
+      background: #111;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background 200ms, transform 200ms;
+    }
+    .hover-panel .hp-buy:hover {
+      background: #333;
+      transform: scale(1.02);
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+      max-width: 1000px;
+      margin: 80px auto 0;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .section-label span {
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #bbb;
+      white-space: nowrap;
+    }
+    .section-label hr {
+      flex: 1;
+      border: none;
+      border-top: 1px solid #e8e8e8;
+    }
+
+    /* HORIZONTAL PRODUCT LIST */
+    .product-list {
+      max-width: 1000px;
+      margin: 32px auto 80px;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .pcard {
+      background: #f7f4f2;
+      border-radius: 20px;
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+      transition: transform 300ms ease, box-shadow 300ms ease;
+      cursor: pointer;
+    }
+    .pcard:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .pcard-img {
+      flex: 0 0 170px;
+      width: 170px;
+      overflow: hidden;
+      border-radius: 20px 0 0 20px;
+    }
+    .pcard-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 300ms ease;
+    }
+    .pcard:hover .pcard-img img { transform: scale(1.04); }
+
+    .pcard-info {
+      flex: 1;
+      padding: 26px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 7px;
+    }
+    .pcard-name {
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: #111;
+    }
+    .pcard-brand {
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 17px;
+      font-weight: 300;
+      color: #666;
+    }
+    .pcard-meta {
+      font-size: 15px;
+      color: #999;
+      letter-spacing: 0.2px;
+    }
+    .pcard-price {
+      font-size: 20px;
+      font-weight: 600;
+      color: #111;
+      margin-top: 2px;
+    }
+    .pcard-price .orig {
+      font-size: 14px;
+      font-weight: 300;
+      color: #bbb;
+      text-decoration: line-through;
+      margin-left: 8px;
+    }
+    .pcard-price .off {
+      font-size: 13px;
+      font-weight: 500;
+      color: #c0392b;
+      margin-left: 8px;
+    }
+    .buy-btn {
+      margin-top: 8px;
+      width: 180px;
+      height: 44px;
+      border: none;
+      border-radius: 50px;
+      background: #111;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+      transition: background 250ms, transform 250ms, box-shadow 250ms;
+    }
+    .buy-btn:hover {
+      background: #333;
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    }
+
+    .vdivider {
+      width: 1px;
+      background: #ddd8d5;
+      margin: 24px 0;
+      flex-shrink: 0;
+    }
+
+    .pcard-foryou {
+      flex: 0 0 270px;
+      padding: 26px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+    }
+    .foryou-label {
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #c0392b;
+    }
+    .foryou-desc {
+      font-size: 16px;
+      font-weight: 300;
+      color: #666;
+      line-height: 1.65;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .pcard-foryou { flex: 0 0 200px; }
+      .pcard-name { font-size: 20px; }
+      .pcard-img { flex: 0 0 130px; width: 130px; }
+    }
+    @media (max-width: 560px) {
+      .product-grid { grid-template-columns: 1fr; }
+      .results-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .pcard { flex-direction: column; border-radius: 16px; }
+      .pcard-img { flex: none; width: 100%; height: 200px; border-radius: 16px 16px 0 0; }
+      .vdivider { width: auto; height: 1px; margin: 0 24px; }
+      .pcard-foryou { flex: none; padding-top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <span class="logo">Attirely</span>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Search</a></li>
+        <li><a href="#">Log in</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="results-header"> 
+    <div class="results-header">
+
+    <div class="results-text">
+
+        <h1>
+            Showing results for
+            <span id="searchText"></span>
+        </h1>
+
+        <p>34 items found</p>
+
+    </div>
+
+    <button class="filter-btn">
+        Apply filters
+    </button>
+
+</div>
+
+<div class="divider">
+    <hr>
+</div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const params = new URLSearchParams(window.location.search);
+
+    const query = params.get("search");
+
+    const searchText = document.getElementById("searchText");
+
+    if (query && searchText) {
+        searchText.textContent = '"' + query + '"';
+    } else if (searchText) {
+        searchText.textContent = '"your search"';
+    }
+
+});
+</script>
+
+  <!-- TOP 3 -->
+  <div class="product-grid">
+
+    <div class="product-card">
+      <div class="img-wrap">
+        <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSsTOHFkBoexutoKiES9xTKsFBhbQeRBUmgN6rvr__bJuFhfJg72CvA2bXgKTxeVtqe41EPJVgPZXsOKu5uM3ajqxgmyjZKNUjWqDnJrrtYSWugEQ_wsnuc" alt="Zara Summer Dress">
+      </div>
+      <div class="hover-panel">
+        <div class="hp-brand">Zara</div>
+        <div class="hp-name">Summer Dress</div>
+        <div class="hp-desc">Lightweight black dress with a relaxed silhouette — effortless for warm days.</div>
+        <div class="hp-pricing">
+          <span class="hp-price">₹1,999</span>
+          <span class="hp-orig">₹3,999</span>
+          <span class="hp-off">50% OFF</span>
+        </div>
+        <button class="hp-buy">Buy now</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="img-wrap">
+        <img src="https://www.joviindia.com/cdn/shop/files/cdr1821022_2b2ad2a2-0a19-4ee2-a0a4-00ed7daaa5c8.jpg?v=1717214928" alt="JOVI Women's Fashion Dress">
+      </div>
+      <div class="hover-panel">
+        <div class="hp-brand">JOVI</div>
+        <div class="hp-name">Women's Fashion Dress</div>
+        <div class="hp-desc">Elegant cut with a contemporary finish — a versatile summer staple.</div>
+        <div class="hp-pricing">
+          <span class="hp-price">₹2,499</span>
+          <span class="hp-orig">₹4,999</span>
+          <span class="hp-off">50% OFF</span>
+        </div>
+        <button class="hp-buy">Buy now</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="img-wrap">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3L0pM8SsxZhKgdCJardKWINV2wTgVsxVPhdu6SoMabNSGPcWlFiHRwWw&s=10" alt="H&M Black Summer Dress">
+      </div>
+      <div class="hover-panel">
+        <div class="hp-brand">H&amp;M</div>
+        <div class="hp-name">Black Summer Dress</div>
+        <div class="hp-desc">Clean black silhouette in breathable fabric — minimal, modern, and summer-ready.</div>
+        <div class="hp-pricing">
+          <span class="hp-price">₹1,799</span>
+          <span class="hp-orig">₹2,999</span>
+          <span class="hp-off">40% OFF</span>
+        </div>
+        <button class="hp-buy">Buy now</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SECTION DIVIDER -->
+  <div class="section-label">
+    <span>More results</span>
+    <hr>
+  </div>
+
+  <!-- NEXT 12 PRODUCTS -->
+  <div class="product-list">
+
+    <div class="pcard">
+      <div class="pcard-img"><img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=340&h=420&fit=crop" alt="Mango Wrap Midi Dress"></div>
+      <div class="pcard-info">
+        <div class="pcard-name">Wrap Midi Dress</div>
+        <div class="pcard-brand">Mango</div>
+        <div class="pcard-meta">Color: Jet Black &nbsp;|&nbsp; Midi</div>
+        <div class="pcard-price">INR 2,799 <span class="orig">INR 4,599</span><span class="off">39% OFF</span></div>
+        <button class="buy-btn">Buy now</button>
+      </div>
+      <div class="vdivider"></div>
+      <div class="pcard-foryou">
+        <div class="foryou-label">For you ♡</div>
+        <div class="foryou-desc">A sleek jet-black wrap midi that cinches at the waist — perfect for beach evenings and city outings this summer.</div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-img"><img src="data:image/webp;base64,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" alt="Only Satin Slip Dress"></div>
+      <div class="pcard-info">
+        <div class="pcard-name">Satin Slip Dress</div>
+        <div class="pcard-brand">Only</div>
+        <div class="pcard-meta">Color: Midnight Black &nbsp;|&nbsp; Slip</div>
+        <div class="pcard-price">INR 1,899 <span class="orig">INR 3,299</span><span class="off">42% OFF</span></div>
+        <button class="buy-btn">Buy now</button>
+      </div>
+      <div class="vdivider"></div>
+      <div class="pcard-foryou">
+        <div class="foryou-label">For you ♡</div>
+        <div class="foryou-desc">Lightweight satin with a subtle sheen — layers beautifully over a tee or worn solo on warm nights.</div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-img"><img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=340&h=420&fit=crop" alt="Vero Moda Floral Shift Dress"></div>
+      <div class="pcard-info">
+        <div class="pcard-name">Floral Shift Dress</div>
+        <div class="pcard-brand">Vero Moda</div>
+        <div class="pcard-meta">Color: Black Floral &nbsp;|&nbsp; Shift</div>
+        <div class="pcard-price">INR 2,199 <span class="orig">INR 3,799</span><span class="off">42% OFF</span></div>
+        <button class="buy-btn">Buy now</button>
+      </div>
+      <div class="vdivider"></div>
+      <div class="pcard-foryou">
+        <div class="foryou-label">For you ♡</div>
+        <div class="foryou-desc">Black base with a delicate floral print — a relaxed shift silhouette that keeps you cool and effortlessly styled.</div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-img"><img src="https://images.unsplash.com/photo-1566206091558-7f218b696731?w=340&h=420&fit=crop" alt="Forever 21 Bodycon Mini"></div>
+      <div class="pcard-info">
+        <div class="pcard-name">Bodycon Mini Dress</div>
+        <div class="pcard-brand">Forever 21</div>
+        <div class="pcard-meta">Color: Black &nbsp;|&nbsp; Mini</div>
+        <div class="pcard-price">INR 1,499 <span class="orig">INR 2,499</span><span class="off">40% OFF</span></div>
+        <button class="buy-btn">Buy now</button>
+      </div>
+      <div class="vdivider"></div>
+      <div class="pcard-foryou">
+        <div class="foryou-label">For you ♡</div>
+        <div class="foryou-desc">Stretchy ribbed fabric that hugs your curves — a go-to mini for summer nights out.</div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-img"><img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=340&h=420&fit=crop" alt="Marks Spencer Linen Shirt Dress"></div>
+      <div class="pcard-info">
+        <div class="pcard-name">Linen Shirt Dress</div>
+        <div class="pcard-brand">Marks &amp; Spencer</div>
+        <div class="pcard-meta">Color: Black &nbsp;|&nbsp; Shirt Dress</div>
+        <div class="pcard-price">INR 3,299 <span class="orig">INR 5,499</span><span class="off">40% OFF</span></div>
+        <button class="buy-btn">Buy now</button>
+      </div>
+      <div class="vdivider"></div>
+      <div class="pcard-foryou">
+        <div class="foryou-label">For you ♡</div>
+        <div class="foryou-desc">Breathable linen in a classic shirt-dress cut — belted or loose, transitions seamlessly from brunch to evening.</div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-img"><img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=340&h=420&fit=crop" alt="Biba Anarkali Kurta Dress"></div>
+      <div class="pcard-info">
+        <div class="pcard-name">Anarkali Kurta Dress</div>
+        <div class="pcard-brand">Biba</div>
+        <div class="pcard-meta">Color: Black &nbsp;|&nbsp; Ethnic Fusion</div>
+        <div class="pcard-price">INR 2,599 <span class="orig">INR 4,299</span><span class="off">40% OFF</span></div>
+        <button class="buy-btn">Buy now</button>
+      </div>
+      <div class="vdivider"></div>
+      <div class="pcard-foryou">
+        <div class="foryou-label">For you ♡</div>
+        <div class="foryou-desc">Flowy Anarkali silhouette in solid black — a fusion pick that pairs beautifully with block heels or kolhapuris.</div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-img"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=340&h=420&fit=crop" alt="Topshop Ruched Midi Dress"></div>
+      <div class="pcard-info">
+        <div class="pcard-name">Ruched Midi Dress</div>
+        <div class="pcard-brand">Topshop</div>
+        <div class="pcard-meta">Color: Black &nbsp;|&nbsp; Ruched</div>
+        <div class="pcard-price">INR 2,299 <span class="orig">INR 3,899</span><span class="off">41% OFF</span></div>
+        <button class="buy-btn">Buy now</button>
+      </div>
+      <div class="vdivider"></div>
+      <div class="pcard-foryou">
+        <div class="foryou-label">For you ♡</div>
+        <div class="foryou-desc">Side-ruched detailing adds texture and shape — flatters every body type and needs zero accessories.</div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-img"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=340&h=420&fit=crop" alt="Zudio Tiered Sundress"></div>
+      <div class="pcard-info">
+        <div class="pcard-name">Tiered Sundress</div>
+        <div class="pcard-brand">Zudio</div>
+        <div class="pcard-meta">Color: Black &nbsp;|&nbsp; Sundress</div>
+        <div class="pcard-price">INR 999 <span class="orig">INR 1,799</span><span class="off">44% OFF</span></div>
+        <button class="buy-btn">Buy now</button>
+      </div>
+      <div class="vdivider"></div>
+      <div class="pcard-foryou">
+        <div class="foryou-label">For you ♡</div>
+        <div class="foryou-desc">Tiered cotton sundress at an unbeatable price — light, breezy, and ideal for casual summer days.</div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-img"><img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=340&h=420&fit=crop" alt="W Printed Wrap Dress"></div>
+      <div class="pcard-info">
+        <div class="pcard-name">Printed Wrap Dress</div>
+        <div class="pcard-brand">W</div>
+        <div class="pcard-meta">Color: Black Print &nbsp;|&nbsp; Wrap</div>
+        <div class="pcard-price">INR 2,099 <span class="orig">INR 3,499</span><span class="off">40% OFF</span></div>
+        <button class="buy-btn">Buy now</button>
+      </div>
+      <div class="vdivider"></div>
+      <div class="pcard-foryou">
+        <div class="foryou-label">For you ♡</div>
+        <div class="foryou-desc">Geometric black print on a soft wrap silhouette — balances ethnic roots with modern summer dressing.</div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-img"><img src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=340&h=420&fit=crop" alt="Levis Denim Shirt Dress"></div>
+      <div class="pcard-info">
+        <div class="pcard-name">Denim Shirt Dress</div>
+        <div class="pcard-brand">Levi's</div>
+        <div class="pcard-meta">Color: Black Denim &nbsp;|&nbsp; Denim</div>
+        <div class="pcard-price">INR 3,799 <span class="orig">INR 5,999</span><span class="off">37% OFF</span></div>
+        <button class="buy-btn">Buy now</button>
+      </div>
+      <div class="vdivider"></div>
+      <div class="pcard-foryou">
+        <div class="foryou-label">For you ♡</div>
+        <div class="foryou-desc">Classic Levi's denim in washed black — structured enough for a day look, relaxed enough for a weekend escape.</div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-img"><img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=340&h=420&fit=crop" alt="Rare Rabbit Smocked Maxi"></div>
+      <div class="pcard-info">
+        <div class="pcard-name">Smocked Maxi Dress</div>
+        <div class="pcard-brand">Rare Rabbit</div>
+        <div class="pcard-meta">Color: Black &nbsp;|&nbsp; Maxi</div>
+        <div class="pcard-price">INR 3,499 <span class="orig">INR 5,799</span><span class="off">40% OFF</span></div>
+        <button class="buy-btn">Buy now</button>
+      </div>
+      <div class="vdivider"></div>
+      <div class="pcard-foryou">
+        <div class="foryou-label">For you ♡</div>
+        <div class="foryou-desc">Smocked bodice with a flowy maxi skirt — effortlessly elegant for resort or rooftop evenings.</div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-img"><img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=340&h=420&fit=crop" alt="Global Desi Embroidered Kaftan"></div>
+      <div class="pcard-info">
+        <div class="pcard-name">Embroidered Kaftan</div>
+        <div class="pcard-brand">Global Desi</div>
+        <div class="pcard-meta">Color: Black &nbsp;|&nbsp; Kaftan</div>
+        <div class="pcard-price">INR 2,899 <span class="orig">INR 4,799</span><span class="off">40% OFF</span></div>
+        <button class="buy-btn">Buy now</button>
+      </div>
+      <div class="vdivider"></div>
+      <div class="pcard-foryou">
+        <div class="foryou-label">For you ♡</div>
+        <div class="foryou-desc">Delicate thread embroidery on a relaxed kaftan silhouette — feels as good as it looks on warm summer days.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
