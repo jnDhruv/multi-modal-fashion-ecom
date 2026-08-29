@@ -82,10 +82,3 @@ body {
   cursor: pointer;
 }   
 
-.section1 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #2C3A47;
-}
