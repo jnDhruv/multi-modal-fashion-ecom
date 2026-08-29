@@ -13,60 +13,38 @@ from app.schemas.response import ProductWithStyleNote, StyleNotesResponse
 def build_product_with_style_note(
     product: Product,
     style_notes: Dict[int, str],
-    user_query: str = ""
+    ai_generated_ids: set,
 ) -> ProductWithStyleNote:
     style_note = style_notes.get(product.id)
-    ai_note_available = style_note is not None and len(style_note.strip()) > 0
-
     return ProductWithStyleNote(
-        id=product.id,
-        product_display_name=product.product_display_name,
-        article_type=product.article_type,
-        base_colour=product.base_colour,
-        fabric=product.fabric,
-        fit=product.fit,
-        season=product.season,
-        usage=product.usage,
-        gender=product.gender,
-        brand_name=product.brand_name,
-        price=product.price,
-        discounted_price=product.discounted_price,
-        image_url=product.image_url,
-        similarity_score=product.similarity_score,
-        style_note=style_note or "AI explanation unavailable for this product.",
-        ai_note_available=ai_note_available,
+        **{f: getattr(product, f) for f in [
+            "id", "product_display_name", "article_type", "base_colour",
+            "fabric", "fit", "season", "usage", "gender", "brand_name",
+            "price", "discounted_price", "image_url", "similarity_score",
+        ]},
+        style_note=style_note or "No style note generated for this product.",
+        ai_note_available=product.id in ai_generated_ids,
     )
 
 
-def build_style_notes_response(
-    products: List[Product],
-    style_notes: Dict[int, str],
-    user_query: str,
-    search_mode: str = "text",
-    error_message: Optional[str] = None
-) -> StyleNotesResponse:
+def build_style_notes_response(products, style_notes, user_query, search_mode="text", error_message=None, ai_generated_ids=None):
     """
     Builds the complete API response object.
 
     This is what FastAPI returns to React as JSON.
     """
-
-    # Enrich each product with its style note
+    ai_generated_ids = ai_generated_ids or set()
     enriched_products = [
-        build_product_with_style_note(product, style_notes, user_query)
-        for product in products
+        build_product_with_style_note(p, style_notes, ai_generated_ids) for p in products
     ]
-
-    # Check if AI was actually used
-    ai_generated = any(p.ai_note_available for p in enriched_products)
-
+    ai_generated = len(ai_generated_ids) > 0
     return StyleNotesResponse(
         products=enriched_products,
         query=user_query,
         total=len(enriched_products),
         ai_generated=ai_generated,
         search_mode=search_mode,
-        error_message=error_message
+        error_message=error_message,
     )
 
 
