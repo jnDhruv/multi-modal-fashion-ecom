@@ -15,36 +15,26 @@ def build_product_with_style_note(
     style_notes: Dict[int, str],
     user_query: str = ""
 ) -> ProductWithStyleNote:
-    """
-    Merges a Product object with its AI-generated style note.
-
-    Takes:
-    - The original Product (from Pydantic validation)
-    - The style_notes dictionary {product_id: note_text}
-
-    Returns a ProductWithStyleNote ready to be sent to React.
-    """
-
-    # Look up the style note for this product
     style_note = style_notes.get(product.id)
     ai_note_available = style_note is not None and len(style_note.strip()) > 0
 
     return ProductWithStyleNote(
         id=product.id,
-        title=product.title,
-        category=product.category,
-        color=product.color,
-        material=product.material,
+        product_display_name=product.product_display_name,
+        article_type=product.article_type,
+        base_colour=product.base_colour,
+        fabric=product.fabric,
         fit=product.fit,
         season=product.season,
-        style=product.style,
+        usage=product.usage,
         gender=product.gender,
-        brand=product.brand,
+        brand_name=product.brand_name,
         price=product.price,
+        discounted_price=product.discounted_price,
         image_url=product.image_url,
         similarity_score=product.similarity_score,
         style_note=style_note or "AI explanation unavailable for this product.",
-        ai_note_available=ai_note_available
+        ai_note_available=ai_note_available,
     )
 
 

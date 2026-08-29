@@ -28,39 +28,22 @@ from typing import List, Optional
 
 
 class ProductWithStyleNote(BaseModel):
-    """
-    A product enriched with an AI-generated style note from Gemini.
-    This is what React displays on the product card.
-    """
-
-    # Core identifiers (always present)
-    id: int = Field(..., description="Product ID — maps back to ml model's product")
-    title: str = Field(..., description="Product title")
-
-    # Optional metadata for display
-    category: Optional[str] = Field(None, description="Product category")
-    color: Optional[str] = Field(None, description="Product color")
-    material: Optional[str] = Field(None, description="Product material")
-    fit: Optional[str] = Field(None, description="Product fit type")
-    season: Optional[str] = Field(None, description="Season suitability")
-    style: Optional[str] = Field(None, description="Style descriptor")
-    gender: Optional[str] = Field(None, description="Target gender")
-    brand: Optional[str] = Field(None, description="Brand name")
-    price: Optional[float] = Field(None, description="Price in INR (₹)")
-    image_url: Optional[str] = Field(None, description="Product image URL")
-    similarity_score: Optional[float] = Field(None, description="Retrieval similarity score")
-
-    # The AI-generated explanation — this is core output
-    style_note: Optional[str] = Field(
-        None,
-        description="AI-generated explanation of why this product matches the user's request"
-    )
-
-    # Flag if AI generation failed for this specific product
-    ai_note_available: bool = Field(
-        True,
-        description="Whether the AI style note was successfully generated"
-    )
+    id: int
+    product_display_name: Optional[str] = None
+    article_type: Optional[str] = None
+    base_colour: Optional[str] = None
+    fabric: Optional[str] = None
+    fit: Optional[str] = None
+    season: Optional[str] = None
+    usage: Optional[str] = None
+    gender: Optional[str] = None
+    brand_name: Optional[str] = None
+    price: Optional[float] = None
+    discounted_price: Optional[float] = None
+    image_url: Optional[str] = None
+    similarity_score: Optional[float] = None
+    style_note: Optional[str] = Field(None, description="AI-generated explanation")
+    ai_note_available: bool = Field(True, description="Whether AI generation succeeded")
 
 
 class StyleNotesResponse(BaseModel):
