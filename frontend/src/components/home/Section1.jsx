@@ -26,7 +26,7 @@ function Section1() {
         {
           x: 0,
           opacity: 1,
-          duration: 2,
+          duration: 1.5,
           ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -46,7 +46,7 @@ function Section1() {
         {
           x: 0,
           opacity: 1,
-          duration: 2,
+          duration: 1.5,
           ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,

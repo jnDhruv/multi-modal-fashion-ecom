@@ -1,3 +1,9 @@
+@font-face {
+  font-family: perandory;
+  src: url(../../assets/fonts/PerandorySemiCondensed.otf);
+}
+
+
 .section1 {
   display: flex;
   justify-content: center;
