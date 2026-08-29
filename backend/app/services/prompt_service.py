@@ -119,30 +119,20 @@ REQUIRED JSON FORMAT (return ONLY this JSON, nothing else):
 
 
 def build_fallback_note(user_query: str, product: Product) -> str:
-    """
-    Generates a simple rule-based style note as a fallback
-    when Gemini is unavailable or fails.
-
-    This ensures the UI still shows something meaningful
-    even without AI.
-    """
-
     parts = []
 
-    if product.category:
-        parts.append(f"This {product.category.lower()}")
+    if product.article_type:
+        parts.append(f"This {product.article_type.lower()}")
     else:
         parts.append("This item")
 
-    # Build attribute mentions
     attributes = []
-
-    if product.color:
-        attributes.append(f"its {product.color.lower()} color")
+    if product.base_colour:
+        attributes.append(f"its {product.base_colour.lower()} color")
     if product.fit:
         attributes.append(f"{product.fit.lower()} fit")
-    if product.material:
-        attributes.append(f"{product.material.lower()} material")
+    if product.fabric:
+        attributes.append(f"{product.fabric.lower()} material")
     if product.season:
         attributes.append(f"suitability for {product.season.lower()}")
 
@@ -152,5 +142,4 @@ def build_fallback_note(user_query: str, product: Product) -> str:
         parts.append("was retrieved as a relevant match")
 
     parts.append("for your search.")
-
     return " ".join(parts)

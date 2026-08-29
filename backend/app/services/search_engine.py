@@ -175,53 +175,56 @@ class SearchEngine:
             )
             return response.points
             
-    def precision_rerank(self, query_text: Optional[str] = None, items_found: Optional[List[Any]] = None) -> List[int]:
-       
+    def precision_rerank(self, query_text: Optional[str] = None, items_found: Optional[List[Any]] = None) -> List[Any]:
         if not query_text or not items_found:
-            return [int(i.id) for i in items_found] if items_found else []
+            return items_found or []
 
         pairs = []
-        valid_pids = []
-        
-        for i in items_found:
-            payload = i.payload or {}
+        valid_items = []
+
+        for item in items_found:
+            payload = item.payload or {}
             title = payload.get("product_display_name", "")
             desc = payload.get("description", "")
             content = f"{title} {desc}".strip()
-            
+
             if content:
                 pairs.append([query_text, content])
-                valid_pids.append(int(i.id))
-                
+                valid_items.append(item)
+
         if not pairs:
-            return [int(p.id) for p in items_found]
-            
+            return items_found
+
         scores = self.cross_encoder_model.predict(pairs)
-        reranked_pairs = sorted(zip(valid_pids, scores), key=lambda x: x[1], reverse=True)
-        return [pid for pid, score in reranked_pairs]
+        reranked = sorted(zip(valid_items, scores), key=lambda x: x[1], reverse=True)
+        return [item for item, _ in reranked]
+
 
     def discover_fashion(
-        self, 
-        text_query: Optional[str] = None, 
+        self,
+        text_query: Optional[str] = None,
         image_query: Optional[Image.Image] = None,
         filters: Optional[Dict[str, Any]] = None,
         apply_rerank: bool = False,
-        top_k: int = 10
-    ) -> List[int]:
-       
-        dense_vector = self.generate_query_embedding(text=text_query, image=image_query)
+        top_k: int = 10,
+    ) -> List[Dict[str, Any]]:
 
+        dense_vector = self.generate_query_embedding(text=text_query, image=image_query)
         limit_candidates = 30 if apply_rerank else top_k
+
         points = self.execute_retrieval(
             dense_vector=dense_vector,
             text_query=text_query,
             filter_dict=filters,
-            limit_candidates=limit_candidates
+            limit_candidates=limit_candidates,
         )
 
         if apply_rerank and text_query and points:
-            final_ordered_ids = self.precision_rerank(query_text=text_query, items_found=points)
+            ordered_points = self.precision_rerank(query_text=text_query, items_found=points)
         else:
-            final_ordered_ids = [int(p.id) for p in points]
+            ordered_points = points
 
-        return final_ordered_ids[:top_k]
+        return [
+            {"id": int(p.id), "payload": p.payload or {}, "score": getattr(p, "score", None)}
+            for p in ordered_points[:top_k]
+        ]
