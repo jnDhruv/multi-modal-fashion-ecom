@@ -61,11 +61,12 @@ def _call_gemini(client: genai.Client, prompt: str) -> str:
         contents=prompt,
         config=types.GenerateContentConfig(
             system_instruction=SYSTEM_INSTRUCTION,
-            max_output_tokens=2048,
-            # temperature/top_p/top_k intentionally omitted — deprecated
-            # for current Gemini 3.x model generations
+            max_output_tokens=8192,
         ),
     )
+    finish_reason = response.candidates[0].finish_reason if response.candidates else None
+    if finish_reason and str(finish_reason) != "STOP":
+        logger.warning(f"Gemini generation ended with finish_reason={finish_reason} (not STOP — response may be truncated)")
     return response.text
 
 
