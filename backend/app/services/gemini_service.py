@@ -65,7 +65,7 @@ def _call_gemini(client: genai.Client, prompt: str) -> str:
         ),
     )
     finish_reason = response.candidates[0].finish_reason if response.candidates else None
-    if finish_reason and str(finish_reason) != "STOP":
+    if finish_reason and str(finish_reason) != "FinishReason.STOP":
         logger.warning(f"Gemini generation ended with finish_reason={finish_reason} (not STOP — response may be truncated)")
     return response.text
 
