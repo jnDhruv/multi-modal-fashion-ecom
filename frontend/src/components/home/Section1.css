@@ -4,7 +4,7 @@
 }
 
 
-.section1 {
+.showcase {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,36 +13,61 @@
   gap: 40px;
   background-color: #2c3a47;
   overflow: hidden;
-}
-
-.section1-group {
   position: relative;
 }
 
-.section1-group img {
+.showcase__group {
+  position: relative;
+}
+
+.showcase__group img {
   display: block;
 }
 
-.section1-text {
+.showcase__caption {
   position: absolute;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-.section1-text h1 {
+.showcase__caption h1 {
   font-family: perandory;
   font-size: 2.5rem;
   letter-spacing: 0.2em;
   margin: 0;
 }
 
-.section1-text-left {
+.showcase__caption--left {
   bottom: 10%;
   color: #641310;
 }
 
-.section1-text-right {
+.showcase__caption--right {
   top: 10%;
   color: #263440;
+}
+
+/* ─── Responsive ────────────────────────────────────────────────
+   Base rules above are untouched. Below ~768px the two side-by-side,
+   naturally-sized images have no room and would overflow — so on
+   small screens only, stack them and cap image width. */
+
+@media (max-width: 767px) {
+  .showcase {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    padding: 60px 0;
+    gap: 60px;
+  }
+
+  .showcase__group img {
+    max-width: 70vw;
+    height: auto;
+  }
+
+  .showcase__caption h1 {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+  }
 }

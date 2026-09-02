@@ -62,28 +62,28 @@ function Section1() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="section1">
+    <section ref={sectionRef} id="showcase" className="showcase">
 
       {/* LEFT */}
-      <div ref={leftGroupRef} className="section1-group">
+      <div ref={leftGroupRef} className="showcase__group">
         <img
           src={hangingSandals}
           alt="Hanging Sandals"
         />
 
-        <div className="section1-text section1-text-left">
+        <div className="showcase__caption showcase__caption--left">
           <h1>You want it?</h1>
         </div>
       </div>
 
       {/* RIGHT */}
-      <div ref={rightGroupRef} className="section1-group">
+      <div ref={rightGroupRef} className="showcase__group">
         <img
           src={hangingBlackShirt}
           alt="Hanging Black Shirt"
         />
 
-        <div className="section1-text section1-text-right">
+        <div className="showcase__caption showcase__caption--right">
           <h1>You Got It.</h1>
         </div>
       </div>

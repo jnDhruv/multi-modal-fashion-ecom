@@ -137,7 +137,7 @@ function StartSearching() {
   };
 
   return (
-    <div className="section2">
+    <div className="search-section">
 
       <img
         src={leftHandPurses}
@@ -149,26 +149,26 @@ function StartSearching() {
         alt="Right Hand Purses"
       />
 
-      <div className="section2-heading">
+      <div className="search-section__heading">
         <h1>
 
-          <span className="white">
+          <span className="search-section__white">
             DEFI
-            <span className="dark-blue">N</span>
-            <span className="red">E</span>
+            <span className="search-section__dark-blue">N</span>
+            <span className="search-section__red">E</span>
           </span>
 
-          <span className="black">
+          <span className="search-section__black">
             YOUR
           </span>
 
-          <span className="black typing-word">
+          <span className="search-section__black search-section__typing-word">
 
             <span ref={typingTextRef}></span>
 
             <span
               ref={cursorRef}
-              className="typing-cursor"
+              className="search-section__typing-cursor"
             />
 
           </span>
@@ -176,13 +176,13 @@ function StartSearching() {
         </h1>
       </div>
 
-      <div className="section2-search-container">
+      <div className="search-section__panel">
 
-        <h1 className="search-title">
+        <h1 className="search-section__title">
           Search Products
         </h1>
 
-        <p className="search-subtitle">
+        <p className="search-section__subtitle">
           Describe what you're looking for — we'll find the closest matches
           and explain why.
         </p>
@@ -191,38 +191,36 @@ function StartSearching() {
         {/* Tabs */}
 
         <div
-          className="search-tabs"
+          className="search-section__tabs"
           role="tablist"
         >
 
           <button
             type="button"
-            className={`search-tab ${
+            className={`search-section__tab ${
               activeTab === "text"
-                ? "search-tab-active"
+                ? "search-section__tab--active"
                 : ""
             }`}
             onClick={() => handleTabSwitch("text")}
             role="tab"
             aria-selected={activeTab === "text"}
           >
-            <span>🔍</span>
             <span>Text Search</span>
           </button>
 
 
           <button
             type="button"
-            className={`search-tab ${
+            className={`search-section__tab ${
               activeTab === "image"
-                ? "search-tab-active"
+                ? "search-section__tab--active"
                 : ""
             }`}
             onClick={() => handleTabSwitch("image")}
             role="tab"
             aria-selected={activeTab === "image"}
           >
-            <span>📷</span>
             <span>Image Search</span>
           </button>
 
@@ -234,12 +232,12 @@ function StartSearching() {
         {activeTab === "text" && (
 
           <div
-            className="search-tab-panel"
+            className="search-section__tab-panel"
             role="tabpanel"
           >
 
             <form
-              className="section2-search"
+              className="search-section__form"
               onSubmit={handleSearch}
             >
 
@@ -250,13 +248,13 @@ function StartSearching() {
                   setQueryText(e.target.value)
                 }
                 placeholder="e.g. black leather jacket"
-                className="search-input"
+                className="search-section__input"
                 aria-label="Search products"
               />
 
               <button
                 type="submit"
-                className="search-submit"
+                className="search-section__submit"
                 disabled={
                   status === "loading" ||
                   !queryText.trim()
@@ -282,20 +280,20 @@ function StartSearching() {
         {activeTab === "image" && (
 
           <div
-            className="search-tab-panel"
+            className="search-section__tab-panel"
             role="tabpanel"
           >
 
-            <div className="image-upload">
+            <div className="search-section__image-upload">
 
               {!selectedImage ? (
 
                 <label
                   htmlFor="image-upload-input"
-                  className="image-upload-box"
+                  className="search-section__image-upload-box"
                 >
 
-                  <span className="upload-icon">
+                  <span className="search-section__upload-icon">
                     📷
                   </span>
 
@@ -311,17 +309,17 @@ function StartSearching() {
 
               ) : (
 
-                <div className="image-preview-container">
+                <div className="search-section__image-preview-container">
 
                   <img
                     src={imagePreview}
                     alt="Selected clothing"
-                    className="image-preview"
+                    className="search-section__image-preview"
                   />
 
                   <button
                     type="button"
-                    className="remove-image"
+                    className="search-section__remove-image"
                     onClick={handleImageRemove}
                   >
                     ×
@@ -346,14 +344,14 @@ function StartSearching() {
 
               <button
                 type="button"
-                className="image-search-button"
+                className="search-section__image-search-btn"
                 onClick={handleSearch}
                 disabled={status === "loading"}
               >
 
                 {status === "loading" ? (
                   <>
-                    <span className="btn-spinner" />
+                    <span className="search-section__btn-spinner" />
                     <span>Searching...</span>
                   </>
                 ) : (

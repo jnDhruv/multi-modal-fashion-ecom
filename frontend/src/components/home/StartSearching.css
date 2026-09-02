@@ -3,7 +3,8 @@
   src: url(../../assets/fonts/PerandorySemiCondensed.otf);
 }
 
-.section2 {
+
+.search-section {
   height: 100vh;
 
   display: flex;
@@ -11,15 +12,57 @@
   justify-content: center;
   position: relative;
   width: 100%;
+
+  /* NEW */
+  /* margin-top: -100px; */
 }
 
-.section2 > img {
+.search-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 180px;
+
+  background: linear-gradient(
+    to bottom,
+    rgb(44, 58, 71) 0%,
+    rgba(212, 209, 202, 0.2) 20%,
+    rgba(212, 209, 202, 0.1) 50%,
+    rgba(212, 209, 202, 0) 100%
+  );
+
+  z-index: 2;
+  pointer-events: none;
+}
+.search-section::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
+  height: 180px;
+
+  background: linear-gradient(
+    to top,
+    #D4D1CA 0%,
+    rgba(212, 209, 202, 0.1) 20%,
+    rgba(212, 209, 202, 0.1) 50%,
+    rgba(212, 209, 202, 0) 100%
+  );
+
+  z-index: 2;
+  pointer-events: none;
+}
+
+.search-section > img {
   width: 100%;
   height: auto;
   filter: brightness(0.9);
 }
 
-.section2-heading {
+.search-section__heading {
   position: absolute;
   left: 50%;
   top: 12%;
@@ -33,7 +76,7 @@
   /* border: 2px solid black; */
 }
 
-.section2-heading > h1 {
+.search-section__heading > h1 {
   font-family: perandory;
   font-size: 3.3rem;
   color: white;
@@ -45,26 +88,26 @@
   gap: 40px;
 }
 
-.section2-heading > h1 .white {
+.search-section__heading > h1 .search-section__white {
   color: white;
 }
-.section2-heading > h1 .dark-blue {
+.search-section__heading > h1 .search-section__dark-blue {
   color: #275075;
 }
-.section2-heading > h1 .red {
+.search-section__heading > h1 .search-section__red {
   color: #641310;
 }
-.section2-heading > h1 .black {
+.search-section__heading > h1 .search-section__black {
   color: #000;
 }
 
-.typing-word {
+.search-section__typing-word {
   display: inline-flex;
   align-items: center;
   min-width: 5.5ch;
 }
 
-.typing-cursor {
+.search-section__typing-cursor {
   width: 3px;
   height: 1em;
   background: #000;
@@ -73,7 +116,7 @@
   transform: translateY(-2px);
 }
 
-.section2-search-container {
+.search-section__panel {
   font-family: perandory;
   margin-top: 50px;
   position: absolute;
@@ -91,18 +134,19 @@
   /* border: 2px solid black; */
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.412);
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5),  0 0 10px rgba(255, 255, 255);
   padding: 30px;
 }
 
-.search-title {
+.search-section__title {
   font-size: 2rem;
   color: black;
   margin-bottom: 20px;
   letter-spacing: 0.2em;
 }
 
-.search-subtitle {
+.search-section__subtitle {
   font-family:
     system-ui,
     -apple-system,
@@ -120,11 +164,8 @@
   margin-bottom: 30px;
 }
 
-/* =========================
-   SEARCH TABS
-========================= */
 
-.search-tabs {
+.search-section__tabs {
   display: flex;
   width: 100%;
   justify-content: center;
@@ -132,7 +173,7 @@
   margin: 20px 0 25px;
 }
 
-.search-tab {
+.search-section__tab {
   border: none;
   background: rgba(255, 255, 255, 0.35);
 
@@ -155,30 +196,24 @@
     box-shadow 0.3s ease;
 }
 
-.search-tab:hover {
+.search-section__tab:hover {
   transform: translateY(-2px);
 }
 
-.search-tab-active {
+.search-section__tab--active {
   background: #263440;
   color: white;
 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
-/* =========================
-   TAB PANEL
-========================= */
 
-.search-tab-panel {
+.search-section__tab-panel {
   width: 100%;
 }
 
-/* =========================
-   TEXT SEARCH
-========================= */
 
-.section2-search {
+.search-section__form {
   width: 100%;
 
   display: flex;
@@ -187,7 +222,7 @@
   gap: 10px;
 }
 
-.search-input {
+.search-section__input {
   flex: 1;
 
   height: 50px;
@@ -205,11 +240,11 @@
   background: rgba(255, 255, 255, 0.85);
 }
 
-.search-input:focus {
+.search-section__input:focus {
   box-shadow: 0 0 0 2px #263440;
 }
 
-.search-submit {
+.search-section__submit {
   height: 50px;
 
   padding: 0 25px;
@@ -230,24 +265,21 @@
     opacity 0.2s ease;
 }
 
-.search-submit:hover:not(:disabled) {
+.search-section__submit:hover:not(:disabled) {
   transform: translateY(-2px);
 }
 
-.search-submit:disabled {
+.search-section__submit:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* =========================
-   IMAGE UPLOAD
-========================= */
 
-.image-upload {
+.search-section__image-upload {
   width: 100%;
 }
 
-.image-upload-box {
+.search-section__image-upload-box {
   height: 140px;
 
   border: 2px dashed rgba(38, 52, 64, 0.6);
@@ -271,31 +303,28 @@
     border-color 0.3s ease;
 }
 
-.image-upload-box:hover {
+.search-section__image-upload-box:hover {
   background: rgba(255, 255, 255, 0.5);
 
   border-color: #263440;
 }
 
-.upload-icon {
+.search-section__upload-icon {
   font-size: 2rem;
 }
 
-.image-upload-box span {
+.search-section__image-upload-box span {
   font-family: system-ui, sans-serif;
   font-size: 1rem;
 }
 
-.image-upload-box small {
+.search-section__image-upload-box small {
   font-family: system-ui, sans-serif;
   opacity: 0.6;
 }
 
-/* =========================
-   IMAGE PREVIEW
-========================= */
 
-.image-preview-container {
+.search-section__image-preview-container {
   position: relative;
 
   width: 100%;
@@ -308,14 +337,14 @@
   background: rgba(255, 255, 255, 0.3);
 }
 
-.image-preview {
+.search-section__image-preview {
   width: 100%;
   height: 100%;
 
   object-fit: contain;
 }
 
-.remove-image {
+.search-section__remove-image {
   position: absolute;
 
   top: 8px;
@@ -335,11 +364,7 @@
   cursor: pointer;
 }
 
-/* =========================
-   IMAGE SEARCH BUTTON
-========================= */
-
-.image-search-button {
+.search-section__image-search-btn {
   width: 100%;
 
   height: 50px;
@@ -368,20 +393,17 @@
     opacity 0.2s ease;
 }
 
-.image-search-button:hover:not(:disabled) {
+.search-section__image-search-btn:hover:not(:disabled) {
   transform: translateY(-2px);
 }
 
-.image-search-button:disabled {
+.search-section__image-search-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-/* =========================
-   LOADING SPINNER
-========================= */
 
-.btn-spinner {
+.search-section__btn-spinner {
   width: 16px;
   height: 16px;
 
@@ -396,5 +418,56 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* ─── Responsive ────────────────────────────────────────────────
+   Base rules above are untouched. Below these breakpoints the fixed
+   40%-width glass panel and the 3.3rem/0.7em heading start colliding
+   with the viewport edges — these rules only apply there. */
+
+@media (max-width: 1024px) {
+  .search-section__panel {
+    width: 60%;
+  }
+}
+
+@media (max-width: 767px) {
+  .search-section {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .search-section > img {
+    height: 45vh;
+    object-fit: cover;
+  }
+
+  .search-section__heading {
+    top: 6%;
+  }
+
+  .search-section__heading > h1 {
+    font-size: clamp(1.4rem, 6vw, 3.3rem);
+    letter-spacing: 0.25em;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .search-section__panel {
+    width: 88%;
+    padding: 20px;
+  }
+
+  .search-section__title {
+    font-size: 1.4rem;
+  }
+
+  .search-section__subtitle {
+    font-size: 1rem;
+  }
+
+  .search-section__tabs {
+    flex-wrap: wrap;
   }
 }
