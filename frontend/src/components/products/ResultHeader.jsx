@@ -1,16 +1,16 @@
 import filterArrow from "../../assets/icons/filter-arrow.svg";
 import "./ResultHeader.css";
 
-function ResultHeader({ products }) {
-  console.log(products);
+function ResultHeader({ total, userQuery }) {
+
   return (
     <div className="result-header-container">
       <div className="result-header-text">
         <h3>
           Showing results for{" "}
-          <span className="span-red">"{products.userQuery}"</span>
+          <span className="span-red">"{userQuery}"</span>
         </h3>
-        <p className="result-count">{products.numberOfItems} items found</p>
+        <p className="result-count">{total} items found</p>
       </div>
 
       <div className="result-header-filter">
