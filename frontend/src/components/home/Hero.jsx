@@ -17,7 +17,7 @@ function Hero() {
     <div className="hero">
       <img src={AttirelyMainImage} alt="Attirely Main" className="hero__image" />
       <div className="hero__text">
-        <div>
+        <div className="hero__maintext">
           {text.split("").map((letter, index) => (
             <motion.span
               key={index}

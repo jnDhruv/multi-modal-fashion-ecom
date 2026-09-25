@@ -46,6 +46,10 @@ body {
   flex-direction: column;
 }
 
+.hero__maintext {
+  display: flex;
+}
+
 .hero__text span {
   display: inline-block;
 }
