@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+
+.products-grid {
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: repeat(4, minmax(100px,  250px));
+    gap: 150px 40px;
+    padding: 20px;
+    margin: 60px 100px;
+    /* border: 2px solid black */
+}
+

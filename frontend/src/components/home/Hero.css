@@ -1,0 +1,127 @@
+@font-face {
+  font-family: perandory;
+  src: url(../../assets/fonts/PerandorySemiCondensed.otf);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.hero {
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+  overflow: hidden;
+  /* border: 2px solid black; */
+}
+
+.hero__image {
+  width: 100%;
+  height: auto;
+  filter: brightness(0.8); /* Darken the image for better text visibility */
+}
+
+.hero__text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: perandory, sans-serif;
+  font-size: 10rem;
+  color: white;
+  letter-spacing: 0.2em;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.hero__text span {
+  display: inline-block;
+}
+
+.hero__letter--accent-1 {
+  color: #151f26;
+}
+.hero__letter--accent-2 {
+  color: #455d72;
+}
+
+.hero__subtext {
+  padding: 10px 50px;
+  font-family: perandory, sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.3em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero__enter-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  /* padding: 10px 20px; */
+  font-size: 1.5rem;
+  /* background-color: #151f26; */
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hero__enter-btn:hover {
+  opacity: 0.8;
+}
+
+.hero__enter-btn:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
+}
+
+/* ─── Responsive ────────────────────────────────────────────────
+   Every rule above is untouched — these only apply below the
+   widths where the fixed-size text/image would start overflowing.
+   The clamp() max values below match the original static values
+   exactly, so nothing changes until the viewport actually needs it. */
+
+.hero__text {
+  font-size: clamp(2.4rem, 13vw, 10rem);
+}
+
+.hero__subtext {
+  font-size: clamp(1.1rem, 5vw, 2rem);
+  padding: 10px clamp(16px, 6vw, 50px);
+}
+
+@media (max-width: 767px) {
+  .hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero__subtext {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4em;
+  }
+
+  .hero__enter-btn {
+    bottom: 16px;
+  }
+}
