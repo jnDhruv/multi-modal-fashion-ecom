@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 
@@ -10,6 +11,8 @@ import rightHandPurses from "../../assets/images/right-hand-purses.png";
 gsap.registerPlugin(TextPlugin);
 
 function StartSearching() {
+  const navigate = useNavigate();
+
   const [queryText, setQueryText] = useState("");
   const [status, setStatus] = useState("idle");
 
@@ -21,17 +24,9 @@ function StartSearching() {
   const typingTextRef = useRef(null);
   const cursorRef = useRef(null);
 
- 
-  
-// Typewriter animation
+  // Typewriter animation
   useEffect(() => {
-    const words = [
-      "STYLE",
-      "VIBE",
-      "AESTHETICS",
-      "LOOK",
-      "ATTIRE",
-    ];
+    const words = ["STYLE", "VIBE", "AESTHETICS", "LOOK", "ATTIRE"];
 
     const text = typingTextRef.current;
     const cursor = cursorRef.current;
@@ -47,9 +42,12 @@ function StartSearching() {
         ease: "none",
       })
 
-        .to({}, {
-          duration: 1,
-        })
+        .to(
+          {},
+          {
+            duration: 1,
+          },
+        )
 
         .to(text, {
           duration: word.length * 0.1,
@@ -57,9 +55,12 @@ function StartSearching() {
           ease: "none",
         })
 
-        .to({}, {
-          duration: 0.3,
-        });
+        .to(
+          {},
+          {
+            duration: 0.3,
+          },
+        );
     });
 
     gsap.to(cursor, {
@@ -108,17 +109,13 @@ function StartSearching() {
     event?.preventDefault();
 
     if (activeTab === "text") {
-      if (!queryText.trim()) return;
+      const query = queryText.trim();
 
-      console.log("Text search:", queryText);
+      if (!query) return;
 
-      // API call will go here
       setStatus("loading");
 
-      // Temporary
-      setTimeout(() => {
-        setStatus("idle");
-      }, 1500);
+      navigate(`/products?query=${encodeURIComponent(query)}`);
     }
 
     if (activeTab === "image") {
@@ -137,70 +134,44 @@ function StartSearching() {
   };
 
   return (
-    <div className="search-section">
+    <div id="search" className="search-section">
+      <img src={leftHandPurses} alt="Left Hand Purses" />
 
-      <img
-        src={leftHandPurses}
-        alt="Left Hand Purses"
-      />
-
-      <img
-        src={rightHandPurses}
-        alt="Right Hand Purses"
-      />
+      <img src={rightHandPurses} alt="Right Hand Purses" />
 
       <div className="search-section__heading">
         <h1>
-
           <span className="search-section__white">
             DEFI
             <span className="search-section__dark-blue">N</span>
             <span className="search-section__red">E</span>
           </span>
 
-          <span className="search-section__black">
-            YOUR
-          </span>
+          <span className="search-section__black">YOUR</span>
 
           <span className="search-section__black search-section__typing-word">
-
             <span ref={typingTextRef}></span>
 
-            <span
-              ref={cursorRef}
-              className="search-section__typing-cursor"
-            />
-
+            <span ref={cursorRef} className="search-section__typing-cursor" />
           </span>
-
         </h1>
       </div>
 
       <div className="search-section__panel">
-
-        <h1 className="search-section__title">
-          Search Products
-        </h1>
+        <h1 className="search-section__title">Search Products</h1>
 
         <p className="search-section__subtitle">
-          Describe what you're looking for — we'll find the closest matches
-          and explain why.
+          Describe what you're looking for — we'll find the closest matches and
+          explain why.
         </p>
-
 
         {/* Tabs */}
 
-        <div
-          className="search-section__tabs"
-          role="tablist"
-        >
-
+        <div className="search-section__tabs" role="tablist">
           <button
             type="button"
             className={`search-section__tab ${
-              activeTab === "text"
-                ? "search-section__tab--active"
-                : ""
+              activeTab === "text" ? "search-section__tab--active" : ""
             }`}
             onClick={() => handleTabSwitch("text")}
             role="tab"
@@ -209,13 +180,10 @@ function StartSearching() {
             <span>Text Search</span>
           </button>
 
-
           <button
             type="button"
             className={`search-section__tab ${
-              activeTab === "image"
-                ? "search-section__tab--active"
-                : ""
+              activeTab === "image" ? "search-section__tab--active" : ""
             }`}
             onClick={() => handleTabSwitch("image")}
             role="tab"
@@ -223,30 +191,17 @@ function StartSearching() {
           >
             <span>Image Search</span>
           </button>
-
         </div>
-
 
         {/* TEXT SEARCH */}
 
         {activeTab === "text" && (
-
-          <div
-            className="search-section__tab-panel"
-            role="tabpanel"
-          >
-
-            <form
-              className="search-section__form"
-              onSubmit={handleSearch}
-            >
-
+          <div className="search-section__tab-panel" role="tabpanel">
+            <form className="search-section__form" onSubmit={handleSearch}>
               <input
                 type="text"
                 value={queryText}
-                onChange={(e) =>
-                  setQueryText(e.target.value)
-                }
+                onChange={(e) => setQueryText(e.target.value)}
                 placeholder="e.g. black leather jacket"
                 className="search-section__input"
                 aria-label="Search products"
@@ -255,62 +210,32 @@ function StartSearching() {
               <button
                 type="submit"
                 className="search-section__submit"
-                disabled={
-                  status === "loading" ||
-                  !queryText.trim()
-                }
+                disabled={status === "loading" || !queryText.trim()}
               >
-
-                {status === "loading"
-                  ? "Searching..."
-                  : "Search"
-                }
-
+                {status === "loading" ? "Searching..." : "Search"}
               </button>
-
             </form>
-
           </div>
-
         )}
-
 
         {/* IMAGE SEARCH */}
 
         {activeTab === "image" && (
-
-          <div
-            className="search-section__tab-panel"
-            role="tabpanel"
-          >
-
+          <div className="search-section__tab-panel" role="tabpanel">
             <div className="search-section__image-upload">
-
               {!selectedImage ? (
-
                 <label
                   htmlFor="image-upload-input"
                   className="search-section__image-upload-box"
                 >
+                  <span className="search-section__upload-icon">📷</span>
 
-                  <span className="search-section__upload-icon">
-                    📷
-                  </span>
+                  <span>Upload a clothing image</span>
 
-                  <span>
-                    Upload a clothing image
-                  </span>
-
-                  <small>
-                    PNG, JPG or JPEG
-                  </small>
-
+                  <small>PNG, JPG or JPEG</small>
                 </label>
-
               ) : (
-
                 <div className="search-section__image-preview-container">
-
                   <img
                     src={imagePreview}
                     alt="Selected clothing"
@@ -324,9 +249,7 @@ function StartSearching() {
                   >
                     ×
                   </button>
-
                 </div>
-
               )}
 
               <input
@@ -336,19 +259,15 @@ function StartSearching() {
                 onChange={handleImageSelect}
                 hidden
               />
-
             </div>
 
-
             {selectedImage && (
-
               <button
                 type="button"
                 className="search-section__image-search-btn"
                 onClick={handleSearch}
                 disabled={status === "loading"}
               >
-
                 {status === "loading" ? (
                   <>
                     <span className="search-section__btn-spinner" />
@@ -360,17 +279,11 @@ function StartSearching() {
                     <span>Search with this image</span>
                   </>
                 )}
-
               </button>
-
             )}
-
           </div>
-
         )}
-
       </div>
-
     </div>
   );
 }

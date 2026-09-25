@@ -1,1 +1,1 @@
-const locomotiveScroll = new LocomotiveScroll();
+// const locomotiveScroll = new LocomotiveScroll();

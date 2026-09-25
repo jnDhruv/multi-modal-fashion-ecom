@@ -8,7 +8,7 @@ import "./ProductCard.css";
 
 gsap.registerPlugin(TextPlugin);
 
-function ProductCard({ data }) {
+function ProductCard({ data, filteredProducts, total }) {
   const products = data.products;
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const styleNoteRefs = useRef([]);

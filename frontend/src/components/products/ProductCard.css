@@ -32,10 +32,12 @@ html, body {
 }
 .product-card:first-child{
     scale: 1.2;
+    box-shadow: 0px 0px 10px 0px #6D2825;
 }
 
 .product-card.first-card-normal {
     scale: 1;
+    box-shadow: none;
 }
 
 .product-card:hover{

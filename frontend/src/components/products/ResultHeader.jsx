@@ -1,7 +1,13 @@
 import filterArrow from "../../assets/icons/filter-arrow.svg";
+import HandleFilter from "./HandleFilter";
 import "./ResultHeader.css";
 
-function ResultHeader({ total, userQuery }) {
+function ResultHeader({
+  total,
+  userQuery,
+  products,
+  onApplyFilters,
+}) {
 
   return (
     <div className="result-header-container">
@@ -14,9 +20,10 @@ function ResultHeader({ total, userQuery }) {
       </div>
 
       <div className="result-header-filter">
-        <button className="filter-button">
-          <h2>Filters</h2>
-        </button>
+        <HandleFilter
+          products={products}
+          onApply={onApplyFilters}
+        />
         <button className="arrow-button">
             <img src={filterArrow} alt="filter-arrow" />
         </button>

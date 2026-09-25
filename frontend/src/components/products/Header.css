@@ -39,6 +39,7 @@ header > h1{
 }
 .header-button {
     /* padding: 10px 10px; */
+    cursor: pointer;
     width: 40px;
     height: 40px;
     border: none;

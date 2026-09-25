@@ -2,12 +2,12 @@ import "./ProductsGrid.css";
 import ProductCard from "./ProductCard";
 
 
-function ProductsGrid({data}){
+function ProductsGrid({data, filteredProducts, total}){
     
     
     return (
         <div className="products-grid">
-            <ProductCard data={data}/>
+            <ProductCard data={data} filteredProducts={filteredProducts} total={total}/>
         </div>
     )
 }

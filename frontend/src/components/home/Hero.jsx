@@ -9,7 +9,7 @@ function Hero() {
   // purely a same-page smooth scroll.
   const handleEnterClick = () => {
     document
-      .getElementById("showcase")
+      .getElementById("search")
       ?.scrollIntoView({ behavior: "smooth" });
   };
 
