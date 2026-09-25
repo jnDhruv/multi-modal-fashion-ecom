@@ -1,0 +1,317 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ========================================
+   MAIN PAGE
+======================================== */
+
+.explore-page {
+  width: 100%;
+  min-height: 100vh;
+
+  background: #d5d2cb;
+
+  overflow: hidden;
+}
+
+
+/* ========================================
+   TITLE
+======================================== */
+
+.explore-page h1 {
+  margin: 0;
+  padding-top: 25px;
+
+  text-align: center;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  font-weight: 400;
+
+  letter-spacing: 8px;
+
+  color: #203d56;
+}
+
+
+/* ========================================
+   MAIN CANVAS
+======================================== */
+
+.explore-container {
+  position: relative;
+
+  width: 1200px;
+  height: 720px;
+
+  margin: 5px auto 0;
+}
+
+
+/* ========================================
+   CENTRAL MODEL
+======================================== */
+
+.model {
+  position: absolute;
+
+  width: 200px;
+  height: 675px;
+
+  left: 500px;
+  top: 45px;
+
+  object-fit: contain;
+
+  z-index: 2;
+}
+
+
+/* ========================================
+   CLICKABLE ITEMS
+======================================== */
+
+.clickable-item {
+  position: absolute;
+
+  z-index: 10;
+
+  cursor: pointer;
+
+  transition: transform 0.25s ease;
+}
+
+.clickable-item img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: contain;
+}
+
+.clickable-item:hover {
+  transform: scale(1.04);
+}
+
+
+/* ========================================
+   CORSET
+======================================== */
+
+.clickable-item.corset {
+  width: 150px;
+  height: 150px;
+
+  left: 275px;
+  top: 30px;
+}
+
+
+/* ========================================
+   ACCESSORIES
+======================================== */
+
+.clickable-item.accessories {
+  width: 160px;
+  height: 140px;
+
+  left: 835px;
+  top: 35px;
+}
+
+
+/* ========================================
+   PURSE
+======================================== */
+
+.clickable-item.purse {
+  width: 180px;
+  height: 155px;
+
+  left: 165px;
+  top: 275px;
+}
+
+
+/* ========================================
+   SKIRT
+======================================== */
+
+.clickable-item.skirt {
+  width: 180px;
+  height: 210px;
+
+  left: 835px;
+  top: 370px;
+}
+
+
+/* ========================================
+   BOOTS
+======================================== */
+
+.clickable-item.boots {
+  width: 150px;
+  height: 180px;
+
+  left: 270px;
+  top: 535px;
+}
+
+
+/* ========================================
+   CONNECTOR LINES
+======================================== */
+
+.line {
+  position: absolute;
+
+  height: 1px;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  z-index: 4;
+
+  pointer-events: none;
+}
+
+
+/* ========================================
+   CORSET CONNECTOR
+======================================== */
+
+.corset-line {
+  width: 200px;
+
+  left: 350px;
+  top: 250px;
+}
+
+.corset-line::before {
+  content: "";
+
+  position: absolute;
+
+  width: 1px;
+  height: 70px;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  left: 0;
+  bottom: 0;
+}
+
+
+/* ========================================
+   ACCESSORIES CONNECTOR
+======================================== */
+
+.accessories-line {
+  width: 150px;
+
+  left: 655px;
+  top: 120px;
+}
+
+.accessories-line::after {
+  content: "";
+
+  position: absolute;
+
+  width: 1px;
+  height: 140px;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  right: 0;
+  top: 60px;
+}
+
+
+/* ========================================
+   PURSE CONNECTOR
+======================================== */
+
+.purse-line {
+  width: 200px;
+
+  left: 300px;
+  top: 385px;
+}
+
+
+/* ========================================
+   SKIRT CONNECTOR
+======================================== */
+
+.skirt-line {
+  width: 160px;
+
+  left: 695px;
+  top: 450px;
+}
+
+
+/* ========================================
+   BOOTS CONNECTOR
+======================================== */
+
+.boots-line {
+  width: 125px;
+
+  left: 395px;
+  top: 620px;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1250px) {
+  .explore-container {
+    transform: scale(0.9);
+    transform-origin: top center;
+
+    margin-bottom: -70px;
+  }
+}
+
+
+@media (max-width: 1000px) {
+  .explore-container {
+    transform: scale(0.75);
+    transform-origin: top center;
+
+    margin-bottom: -180px;
+  }
+
+  .explore-page h1 {
+    font-size: 22px;
+    letter-spacing: 7px;
+  }
+}
+
+
+@media (max-width: 700px) {
+  .explore-container {
+    transform: scale(0.55);
+    transform-origin: top center;
+
+    margin-bottom: -320px;
+  }
+
+  .explore-page h1 {
+    font-size: 19px;
+    letter-spacing: 5px;
+  }
+}

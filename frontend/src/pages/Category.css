@@ -1,0 +1,376 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.category-page {
+  min-height: 100vh;
+  width: 100%;
+
+  background: #ffffff;
+  color: #171717;
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* ========================================
+   NAVBAR
+======================================== */
+
+.category-header {
+  width: 100%;
+  height: 55px;
+
+  background: #762821;
+}
+
+.header-inner {
+  width: 1060px;
+  max-width: calc(100% - 70px);
+
+  height: 100%;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+/* LOGO */
+
+.brand-logo {
+  color: #ffffff;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  letter-spacing: 6px;
+
+  cursor: pointer;
+
+  user-select: none;
+}
+
+
+/* NAV ICONS */
+
+.header-icons {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+}
+
+.nav-icon {
+  width: 30px;
+  height: 30px;
+
+  padding: 6px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.nav-icon svg {
+  width: 17px;
+  height: 17px;
+
+  fill: none;
+  stroke: #171717;
+
+  stroke-width: 1.8;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* ========================================
+   CATEGORY HEADER
+======================================== */
+
+.category-top {
+  width: 1060px;
+  max-width: calc(100% - 70px);
+
+  height: 60px;
+
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.category-info h1 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  font-style: italic;
+
+  color: #222222;
+}
+
+.category-info p {
+  margin: 3px 0 0;
+
+  font-size: 12px;
+
+  color: #777777;
+}
+
+
+/* ========================================
+   FILTER
+======================================== */
+
+.filter-button {
+  width: 123px;
+  height: 34px;
+
+  border: none;
+  border-radius: 20px;
+
+  background: #e4e0e1;
+
+  padding: 0 0 0 19px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 14px;
+
+  cursor: pointer;
+}
+
+.filter-arrow {
+  width: 42px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 27px;
+  font-weight: 300;
+}
+
+
+/* ========================================
+   DIVIDER
+======================================== */
+
+.category-divider {
+  width: 1060px;
+  max-width: calc(100% - 70px);
+
+  height: 3px;
+
+  margin: 0 auto;
+
+  background: #f1eeee;
+}
+
+
+/* ========================================
+   PRODUCTS
+======================================== */
+
+.product-section {
+  width: 1060px;
+  max-width: calc(100% - 70px);
+
+  margin: 78px auto 100px;
+}
+
+
+/* ========================================
+   PRODUCT GRID
+======================================== */
+
+.product-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  column-gap: 68px;
+
+  row-gap: 100px;
+}
+
+
+/* ========================================
+   PRODUCT CARD
+======================================== */
+
+.product-card {
+  width: 100%;
+
+  position: relative;
+}
+
+
+/* ========================================
+   IMAGE
+======================================== */
+
+.product-image-wrapper {
+  width: 100%;
+
+  aspect-ratio: 1 / 1;
+
+  overflow: hidden;
+
+  background: #eeeeeb;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+
+/* ========================================
+   PRODUCT INFO
+======================================== */
+
+.product-info {
+  min-height: 59px;
+
+  padding: 7px 7px 6px;
+
+  background: #eeeeee;
+}
+
+.product-brand {
+  margin: 0 0 4px;
+
+  font-size: 12px;
+
+  font-style: italic;
+
+  color: #555555;
+}
+
+.product-name {
+  margin: 0 0 4px;
+
+  font-size: 11px;
+
+  line-height: 1.2;
+
+  color: #151515;
+}
+
+.product-price {
+  margin: 0;
+
+  font-size: 11px;
+
+  color: #151515;
+}
+
+
+/* ========================================
+   ACTION BUTTONS
+======================================== */
+
+.product-actions {
+  height: 27px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+.product-actions button {
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #222222;
+
+  font-size: 22px;
+
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1100px) {
+
+  .header-inner,
+  .category-top,
+  .category-divider,
+  .product-section {
+    width: calc(100% - 70px);
+  }
+
+  .product-grid {
+    column-gap: 35px;
+  }
+}
+
+
+@media (max-width: 800px) {
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    column-gap: 25px;
+    row-gap: 60px;
+  }
+}
+
+
+@media (max-width: 500px) {
+
+  .header-inner,
+  .category-top,
+  .category-divider,
+  .product-section {
+    width: calc(100% - 30px);
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-logo {
+    font-size: 15px;
+    letter-spacing: 4px;
+  }
+}
