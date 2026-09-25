@@ -1,5 +1,5 @@
 import "./ExploreMore.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 function ExploreMore() {
   const navigate = useNavigate();

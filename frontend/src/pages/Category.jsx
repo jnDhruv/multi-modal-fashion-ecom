@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import "./Category.css";
 
 const CATEGORY_QUERIES = {
@@ -31,7 +31,7 @@ function Category() {
 
         const query = CATEGORY_QUERIES[category] || category;
 
-        const response = await fetch("http://127.0.0.1:8000/search", {
+        const response = await fetch("https://ss99dh14-8000.inc1.devtunnels.ms/search", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
